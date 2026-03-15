@@ -19,6 +19,7 @@ Data directory structure:
 
 import argparse
 import sys
+import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
@@ -75,11 +76,23 @@ def build_html(config: dict, data_dir: Path) -> str:
     return generate_html(config["title"], config["tabs"], data)
 
 
+def _get_data_fingerprint(data_dir: Path) -> float:
+    """Return the latest mtime across all data files. 0 if no files."""
+    latest = 0.0
+    if data_dir.exists():
+        for f in data_dir.iterdir():
+            if f.is_file() and f.suffix in (".yaml", ".yml", ".md"):
+                latest = max(latest, f.stat().st_mtime)
+    return latest
+
+
 class PreviewHandler(BaseHTTPRequestHandler):
-    """Regenerate HTML on every request for live preview."""
+    """Serve cached HTML, regenerate only when data files change."""
 
     config: dict = {}
     data_dir: Path = Path("./data")
+    _cache_html: str = ""
+    _cache_fingerprint: float = -1.0
 
     def do_GET(self):
         if self.path == "/" or self.path == "/index.html":

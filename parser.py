@@ -30,7 +30,7 @@ class TabData:
 
 def parse_yaml(filepath: Path) -> TabData:
     with open(filepath, "r", encoding="utf-8") as f:
-        raw = yaml.safe_load(f)
+        raw = yaml.load(f, Loader=getattr(yaml, "CSafeLoader", yaml.SafeLoader))
 
     if not raw or "cards" not in raw:
         return TabData()

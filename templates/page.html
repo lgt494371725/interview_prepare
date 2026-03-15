@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', sans-serif; background: #f5f5f3; color: #1a1a18; padding: 2rem 1rem; }
+.wrapper { max-width: 860px; margin: 0 auto; }
+h1 { font-size: 20px; font-weight: 500; margin-bottom: 1.5rem; color: #1a1a18; }
+.top-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.top-tab { padding: 7px 18px; border: 0.5px solid #888780; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; background: #fff; color: #5f5e5a; transition: all 0.15s; }
+.top-tab:hover { background: #f1efe8; }
+.top-tab.active { background: #EEEDFE; color: #3C3489; border-color: transparent; }
+.page { display: none; }
+.page.visible { display: block; }
+.exp-card { border: 0.5px solid #d3d1c7; border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; background: #fff; }
+.exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; flex-wrap: wrap; gap: 8px; }
+.exp-title { font-size: 16px; font-weight: 500; color: #1a1a18; }
+.exp-period { font-size: 12px; color: #888780; padding-top: 3px; }
+.exp-company { font-size: 13px; color: #5f5e5a; margin-bottom: 4px; }
+.exp-summary { font-size: 13px; color: #5f5e5a; margin-bottom: 10px; line-height: 1.6; }
+.tech-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.tech-tag { background: #f1efe8; border: 0.5px solid #d3d1c7; border-radius: 8px; font-size: 11px; padding: 2px 8px; color: #5f5e5a; font-family: 'SF Mono', 'Consolas', monospace; }
+.section-label { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #3a3a38; margin: 16px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #d3d1c7; }
+.section-label:first-of-type { margin-top: 0; }
+.bullet-list { list-style: none; padding: 0; margin: 0; }
+.bullet-item { display: flex; gap: 8px; padding: 5px 0; font-size: 14px; color: #1a1a18; line-height: 1.65; border-bottom: 0.5px solid #e8e6df; }
+.bullet-item:last-child { border-bottom: none; }
+.bullet-dot { color: #888780; padding-top: 1px; min-width: 12px; }
+.lang-toggle { display: flex; gap: 4px; margin-bottom: 1rem; }
+.lang-btn { padding: 4px 12px; font-size: 12px; border: 0.5px solid #888780; border-radius: 8px; cursor: pointer; background: #fff; color: #5f5e5a; transition: all 0.15s; }
+.lang-btn.active { background: #B5D4F4; color: #0C447C; border-color: transparent; }
+.ja { display: block; }
+.zh { display: none; }
+.lang-zh .ja { display: none; }
+.lang-zh .zh { display: block; }
+.empty-placeholder { padding: 2rem; text-align: center; color: #888780; font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <h1>{{ title }}</h1>
+
+  <div class="top-tabs">
+  {%- for tab in tabs %}
+    <button class="top-tab{{ ' active' if loop.first }}" onclick="showPage('{{ tab.id }}', this)">{{ tab.icon }} <span class="ja">{{ tab.label_ja }}</span><span class="zh">{{ tab.label_zh }}</span></button>
+  {%- endfor %}
+  </div>
+
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-ja" onclick="setLang('ja')">日本語</button>
+    <button class="lang-btn" id="btn-zh" onclick="setLang('zh')">中文</button>
+  </div>
+
+{%- for tab in tabs %}
+  {%- set tab_data = data[tab.id] %}
+  {%- set ja_tab = tab_data.ja %}
+  {%- set zh_tab = tab_data.zh %}
+  <div id="page-{{ tab.id }}" class="page{{ ' visible' if loop.first }}">
+  {%- if not ja_tab and not zh_tab %}
+    <div class="empty-placeholder"><span class="ja">データなし / ファイル未提供</span><span class="zh">暂无数据 / 文件未提供</span></div>
+  {%- else %}
+    {%- set ja_cards = ja_tab.cards if ja_tab else [] %}
+    {%- set zh_cards = zh_tab.cards if zh_tab else [] %}
+    {%- set max_cards = [ja_cards|length, zh_cards|length]|max %}
+    {%- for ci in range(max_cards) %}
+      {%- set c_ja = ja_cards[ci] if ci < ja_cards|length else none %}
+      {%- set c_zh = zh_cards[ci] if ci < zh_cards|length else none %}
+      {%- set ref = c_ja or c_zh %}
+    <div class="exp-card">
+      <div class="exp-header">
+        <div class="exp-title">
+          <span class="ja">{{ c_ja.title if c_ja else '' }}</span>
+          <span class="zh">{{ c_zh.title if c_zh else '' }}</span>
+        </div>
+        <div class="exp-period">{{ ref.period }}</div>
+      </div>
+      <div class="exp-company">
+        <span class="ja">{{ c_ja.company if c_ja else '' }}</span>
+        <span class="zh">{{ c_zh.company if c_zh else '' }}</span>
+      </div>
+      {%- set s_ja = c_ja.summary if c_ja and c_ja.summary else '' %}
+      {%- set s_zh = c_zh.summary if c_zh and c_zh.summary else '' %}
+      {%- if s_ja or s_zh %}
+      <div class="exp-summary">
+        {%- if s_ja %}<span class="ja">{{ s_ja }}</span>{% endif %}
+        {%- if s_zh %}<span class="zh">{{ s_zh }}</span>{% endif %}
+      </div>
+      {%- endif %}
+      {%- if ref.tech_tags %}
+      <div class="tech-row">
+        {%- for tag in ref.tech_tags %}
+        <span class="tech-tag">{{ tag }}</span>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+      {%- set ja_secs = c_ja.sections if c_ja else [] %}
+      {%- set zh_secs = c_zh.sections if c_zh else [] %}
+      {%- set max_secs = [ja_secs|length, zh_secs|length]|max %}
+      {%- for si in range(max_secs) %}
+        {%- set sec_ja = ja_secs[si] if si < ja_secs|length else none %}
+        {%- set sec_zh = zh_secs[si] if si < zh_secs|length else none %}
+      <div class="section-label"{{ ' style="margin-top:18px;"' if si > 0 }}>
+        <span class="ja">&#{{ 9312 + si }}; {{ sec_ja.title if sec_ja else '' }}</span>
+        <span class="zh">&#{{ 9312 + si }}; {{ sec_zh.title if sec_zh else '' }}</span>
+      </div>
+        {%- set ja_bullets = sec_ja.bullets if sec_ja else [] %}
+        {%- set zh_bullets = sec_zh.bullets if sec_zh else [] %}
+        {%- set max_bullets = [ja_bullets|length, zh_bullets|length]|max %}
+        {%- if max_bullets > 0 %}
+      <ul class="bullet-list">
+          {%- for bi in range(max_bullets) %}
+        <li class="bullet-item">
+          <span class="bullet-dot">&middot;</span>
+          <span class="ja">{{ ja_bullets[bi] if bi < ja_bullets|length else '' }}</span>
+          <span class="zh">{{ zh_bullets[bi] if bi < zh_bullets|length else '' }}</span>
+        </li>
+          {%- endfor %}
+      </ul>
+        {%- endif %}
+      {%- endfor %}
+    </div>
+    {%- endfor %}
+  {%- endif %}
+  </div>
+{%- endfor %}
+
+</div>
+<script>
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+  document.querySelectorAll('.top-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('visible');
+  btn.classList.add('active');
+}
+function setLang(lang) {
+  const root = document.querySelector('.wrapper');
+  if (lang === 'zh') {
+    root.classList.add('lang-zh');
+    document.getElementById('btn-zh').classList.add('active');
+    document.getElementById('btn-ja').classList.remove('active');
+  } else {
+    root.classList.remove('lang-zh');
+    document.getElementById('btn-ja').classList.add('active');
+    document.getElementById('btn-zh').classList.remove('active');
+  }
+}
+</script>
+</body>
+</html>
