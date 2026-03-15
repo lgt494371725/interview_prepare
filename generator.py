@@ -17,7 +17,8 @@ h1 { font-size: 20px; font-weight: 500; margin-bottom: 1.5rem; color: #1a1a18; }
 .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; flex-wrap: wrap; gap: 8px; }
 .exp-title { font-size: 16px; font-weight: 500; color: #1a1a18; }
 .exp-period { font-size: 12px; color: #888780; padding-top: 3px; }
-.exp-company { font-size: 13px; color: #5f5e5a; margin-bottom: 10px; }
+.exp-company { font-size: 13px; color: #5f5e5a; margin-bottom: 4px; }
+.exp-summary { font-size: 13px; color: #5f5e5a; margin-bottom: 10px; line-height: 1.6; }
 .tech-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .tech-tag { background: #f1efe8; border: 0.5px solid #d3d1c7; border-radius: 8px; font-size: 11px; padding: 2px 8px; color: #5f5e5a; font-family: 'SF Mono', 'Consolas', monospace; }
 .section-label { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #3a3a38; margin: 16px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #d3d1c7; }
@@ -95,6 +96,16 @@ def _render_card(card_ja: Card | None, card_zh: Card | None) -> str:
     parts.append(f'    <span class="ja">{company_ja}</span>')
     parts.append(f'    <span class="zh">{company_zh}</span>')
     parts.append("  </div>")
+
+    summary_ja = _esc(card_ja.summary) if card_ja and card_ja.summary else ""
+    summary_zh = _esc(card_zh.summary) if card_zh and card_zh.summary else ""
+    if summary_ja or summary_zh:
+        parts.append('  <div class="exp-summary">')
+        if summary_ja:
+            parts.append(f'    <span class="ja">{summary_ja}</span>')
+        if summary_zh:
+            parts.append(f'    <span class="zh">{summary_zh}</span>')
+        parts.append("  </div>")
 
     if tech_tags:
         parts.append('  <div class="tech-row">')

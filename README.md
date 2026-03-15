@@ -49,6 +49,7 @@ cards:
   - title: "データ分析インターン"
     period: "20XX.XX — 20XX.XX"
     company: "某テック企業（Example Corp）"
+    summary: "マーケティング施策のデータ分析およびユーザー嗜好予測モデルの構築を担当"
     tech_tags: [Python, SQL, Pandas]
     sections:
       - title: "運営データ分析"
@@ -63,6 +64,7 @@ cards:
 # データ分析インターン
 - period: 20XX.XX — 20XX.XX
 - company: 某テック企業（Example Corp）
+- summary: マーケティング施策のデータ分析およびユーザー嗜好予測モデルの構築を担当
 - tech: Python, SQL, Pandas
 
 ## 運営データ分析
@@ -149,6 +151,7 @@ cards:
   - title: "数据分析实习生"
     period: "20XX.XX — 20XX.XX"
     company: "某科技公司（Example Corp）"
+    summary: "负责营销活动数据分析及用户偏好预测模型构建"
     tech_tags: [Python, SQL, Pandas]
     sections:
       - title: "运营数据分析"
@@ -163,6 +166,7 @@ cards:
 # 数据分析实习生
 - period: 20XX.XX — 20XX.XX
 - company: 某科技公司（Example Corp）
+- summary: 负责营销活动数据分析及用户偏好预测模型构建
 - tech: Python, SQL, Pandas
 
 ## 运营数据分析

@@ -1,6 +1,7 @@
 # データ分析インターン
 - period: 20XX.XX — 20XX.XX
 - company: 某テック企業（Example Corp）
+- summary: マーケティング施策のデータ分析およびユーザー嗜好予測モデルの構築を担当
 - tech: Python, SQL, Pandas, Tableau, Excel
 
 ## 運営データ分析
@@ -17,6 +18,7 @@
 # バックエンド開発インターン
 - period: 20XX.XX — 20XX.XX
 - company: 某ソフトウェア企業（Sample Software Inc.）
+- summary: 企業向けスマート検索システムのバックエンド開発および自動デプロイを担当
 - tech: Python, Elasticsearch, SQL, Docker
 
 ## インテリジェント検索システムの機能開発

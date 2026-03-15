@@ -1,6 +1,7 @@
 # 数据分析实习生
 - period: 20XX.XX — 20XX.XX
 - company: 某科技公司（Example Corp）
+- summary: 负责营销活动数据分析及用户偏好预测模型构建
 - tech: Python, SQL, Pandas, Tableau, Excel
 
 ## 运营数据分析
@@ -17,6 +18,7 @@
 # 后端开发实习生
 - period: 20XX.XX — 20XX.XX
 - company: 某软件公司（Sample Software Inc.）
+- summary: 参与企业级智能搜索系统后端开发及自动化部署
 - tech: Python, Elasticsearch, SQL, Docker
 
 ## 智能搜索系统功能开发

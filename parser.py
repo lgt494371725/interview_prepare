@@ -18,6 +18,7 @@ class Card:
     title: str = ""
     period: str = ""
     company: str = ""
+    summary: str = ""
     tech_tags: list[str] = field(default_factory=list)
     sections: list[Section] = field(default_factory=list)
 
@@ -40,6 +41,7 @@ def parse_yaml(filepath: Path) -> TabData:
             title=card_raw.get("title", ""),
             period=card_raw.get("period", ""),
             company=card_raw.get("company", ""),
+            summary=card_raw.get("summary", ""),
             tech_tags=card_raw.get("tech_tags", []),
         )
         for sec_raw in card_raw.get("sections", []):
@@ -89,6 +91,8 @@ def _parse_md_card(block: str) -> Card | None:
                 card.period = meta.split(":", 1)[1].strip()
             elif meta.startswith("company:"):
                 card.company = meta.split(":", 1)[1].strip()
+            elif meta.startswith("summary:"):
+                card.summary = meta.split(":", 1)[1].strip()
             elif meta.startswith("tech:"):
                 tags = meta.split(":", 1)[1].strip()
                 card.tech_tags = [t.strip() for t in tags.split(",")]

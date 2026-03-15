@@ -2,6 +2,7 @@ cards:
   - title: "データ分析インターン"
     period: "20XX.XX — 20XX.XX"
     company: "某テック企業（Example Corp）"
+    summary: "マーケティング施策のデータ分析およびユーザー嗜好予測モデルの構築を担当"
     tech_tags: [Python, SQL, Pandas, Tableau, Excel]
     sections:
       - title: "運営データ分析"
@@ -17,6 +18,7 @@ cards:
   - title: "バックエンド開発インターン"
     period: "20XX.XX — 20XX.XX"
     company: "某ソフトウェア企業（Sample Software Inc.）"
+    summary: "企業向けスマート検索システムのバックエンド開発および自動デプロイを担当"
     tech_tags: [Python, Elasticsearch, SQL, Docker]
     sections:
       - title: "インテリジェント検索システムの機能開発"
