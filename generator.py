@@ -20,7 +20,7 @@ h1 { font-size: 20px; font-weight: 500; margin-bottom: 1.5rem; color: #1a1a18; }
 .exp-company { font-size: 13px; color: #5f5e5a; margin-bottom: 10px; }
 .tech-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .tech-tag { background: #f1efe8; border: 0.5px solid #d3d1c7; border-radius: 8px; font-size: 11px; padding: 2px 8px; color: #5f5e5a; font-family: 'SF Mono', 'Consolas', monospace; }
-.section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #888780; margin: 14px 0 6px; padding-bottom: 6px; border-bottom: 0.5px solid #d3d1c7; }
+.section-label { font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #3a3a38; margin: 16px 0 8px; padding-bottom: 6px; border-bottom: 1px solid #d3d1c7; }
 .section-label:first-of-type { margin-top: 0; }
 .bullet-list { list-style: none; padding: 0; margin: 0; }
 .bullet-item { display: flex; gap: 8px; padding: 5px 0; font-size: 14px; color: #1a1a18; line-height: 1.65; border-bottom: 0.5px solid #e8e6df; }
