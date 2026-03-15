@@ -8,3 +8,6 @@
 # Python
 __pycache__/
 *.pyc
+
+# claude local setting
+settings.local.json
