@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "interview-preview",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["app.py", "--data", "./data/samples/yaml"],
+      "port": 8080
+    }
+  ]
+}

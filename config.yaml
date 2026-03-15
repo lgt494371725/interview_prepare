@@ -1,0 +1,18 @@
+title: "面接準備ドキュメント / 面试准备文档"
+
+tabs:
+  - id: intern
+    icon: "🎓"
+    label_ja: "実習経験"
+    label_zh: "实习经历"
+  - id: work
+    icon: "🏢"
+    label_ja: "職務経験"
+    label_zh: "公司经历"
+  - id: project
+    icon: "🔬"
+    label_ja: "プロジェクト"
+    label_zh: "项目经历"
+
+data_dir: "./data"
+port: 8080

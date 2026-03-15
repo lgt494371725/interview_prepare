@@ -1,0 +1,10 @@
+# User data (contains personal info)
+/data/*
+!/data/samples/
+
+# Export output
+*.html
+
+# Python
+__pycache__/
+*.pyc
